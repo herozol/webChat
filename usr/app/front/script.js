@@ -3,6 +3,7 @@ var authorInput = document.getElementById("author");
 var textInput = document.getElementById("text");
 var chat = document.querySelector("ul");
 var userInput = document.getElementById("userInput");
+const URL = "http://localhost:8080/api/v1/messages";
 
 function inputsLength() {
 	return authorInput.value.length > 0 && textInput.value.length > 0 ? true : false;
@@ -42,7 +43,7 @@ function POST() {
 		body: JSON.stringify(message)
 	};
 
-	fetch("http://localhost:8080/api/v1/messages", config)
+	fetch(URL, config)
 		.then(function (response) {
 			return response.json();
 		}).then(function (obj) {
@@ -61,7 +62,7 @@ function GET() {
 		}
 	};
 
-	fetch("http://localhost:8080/api/v1/messages", config)
+	fetch(URL, config)
 		.then(function (response) {
 			return response.json();
 		}).then(function (obj) {
