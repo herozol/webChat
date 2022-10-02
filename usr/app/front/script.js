@@ -14,8 +14,6 @@ function addMessageToChat(author, text) {
 	chat.appendChild(li);
 }
 
-
-
 button.addEventListener("click", function () {
 	if (inputsLength()) {
 		addMessageToChat(authorInput.value, textInput.value);
