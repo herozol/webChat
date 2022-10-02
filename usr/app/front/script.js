@@ -5,7 +5,7 @@ var chat = document.querySelector("ul");
 var userInput = document.getElementById("userInput");
 
 function inputsLength(){
-	return author.value.length > 0 && text.value.length > 0 ? true : false;
+	return authorInput.value.length > 0 && textInput.value.length > 0 ? true : false;
 }
 
 function addMessageToChat(){
@@ -59,7 +59,7 @@ function POST(){
 	})
 }
 
-document.addEventListener("DOMContentLoaded", async function() {
+function GET(){
 	let config = {
 		method: 'GET',
 		headers: {
@@ -81,4 +81,8 @@ document.addEventListener("DOMContentLoaded", async function() {
 		console.log('Smth wrong');
 		console.log(error);
 	})
+}
+
+document.addEventListener("DOMContentLoaded", async function() {
+	GET();
 }, false);
