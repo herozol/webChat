@@ -4,27 +4,21 @@ var textInput = document.getElementById("text");
 var chat = document.querySelector("ul");
 var userInput = document.getElementById("userInput");
 
-function inputsLength(){
+function inputsLength() {
 	return authorInput.value.length > 0 && textInput.value.length > 0 ? true : false;
 }
 
-function addMessageToChat(){
+function addMessageToChat(author, text) {
 	var li = document.createElement("li");
-	li.appendChild(document.createTextNode(authorInput.value + ": " + textInput.value));
+	li.appendChild(document.createTextNode(author + ": " + text));
 	chat.appendChild(li);
 }
 
-function addMessageToChatTest(autor, text){
-	var li = document.createElement("li");
-	li.appendChild(document.createTextNode(autor + ": " + text));
-	chat.appendChild(li);
-}
-
-button.addEventListener("click", function(){
-	if(inputsLength){
-		addMessageToChat();
+button.addEventListener("click", function () {
+	if (inputsLength()) {
+		addMessageToChat(authorInput.value, textInput.value);
 		POST();
-	} 
+	}
 	// else {
 	// 	var errMess = document.createElement("h5");
 	// 	errMess.appendChild(document.createTextNode("Name or message cannot be empty("));
@@ -34,7 +28,7 @@ button.addEventListener("click", function(){
 	// }
 })
 
-function POST(){
+function POST() {
 	var message = {
 		author: authorInput.value,
 		text: textInput.value
@@ -43,46 +37,46 @@ function POST(){
 	let config = {
 		method: 'POST',
 		headers: {
-		    'Content-Type': 'application/json',
+			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify(message)
 	};
 
 	fetch("http://localhost:8080/api/v1/messages", config)
-	.then(function (response) {
-		return response.json();
-	}).then(function (obj) {
-		console.log(obj);
-	}).catch(function (error){
-		console.log('Smth wrong');
-		console.log(error);
-	})
+		.then(function (response) {
+			return response.json();
+		}).then(function (obj) {
+			console.log(obj);
+		}).catch(function (error) {
+			console.log('Smth wrong');
+			console.log(error);
+		})
 }
 
-function GET(){
+function GET() {
 	let config = {
 		method: 'GET',
 		headers: {
-		    'Content-Type': 'application/json',
+			'Content-Type': 'application/json'
 		}
 	};
 
 	fetch("http://localhost:8080/api/v1/messages", config)
-	.then(function (response) {
-		return response.json();
-	}).then(function (obj) {
-		id = obj;
-		for (var i = 0; i < obj.length; i++) {
-			let InputAuthor = obj[i].author;
-			let InputText = obj[i].text;
-			addMessageToChatTest(InputAuthor, InputText);
-		}
-	}).catch(function (error){
-		console.log('Smth wrong');
-		console.log(error);
-	})
+		.then(function (response) {
+			return response.json();
+		}).then(function (obj) {
+			id = obj;
+			for (var i = 0; i < obj.length; i++) {
+				let InputAuthor = obj[i].author;
+				let InputText = obj[i].text;
+				addMessageToChat(InputAuthor, InputText);
+			}
+		}).catch(function (error) {
+			console.log('Smth wrong');
+			console.log(error);
+		})
 }
 
-document.addEventListener("DOMContentLoaded", async function() {
+document.addEventListener("DOMContentLoaded", async function () {
 	GET();
 }, false);
